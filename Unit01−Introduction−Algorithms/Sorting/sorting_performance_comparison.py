@@ -14,8 +14,10 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from merge_sort import merge_sort
+from insertion_sort import insertion_sort
 from quick_sort import quick_sort
+from merge_sort import merge_sort
+from recursive_insertion_sort import recursive_insertion_sort
 
 
 def heap_sort(values):
@@ -40,6 +42,8 @@ def heap_sort(values):
 
 
 ALGORITHMS = {
+    "Insertion Sort": insertion_sort,
+    "Recursive Insertion": recursive_insertion_sort,
     "Merge Sort": merge_sort,
     "Quick Sort": quick_sort,
     "Heap Sort": heap_sort,
@@ -60,7 +64,7 @@ def measure(sort_function, data):
 
 
 def analyze(
-    sizes=(100, 500, 1000, 2000, 4000, 8000),
+    sizes=(100, 200, 400, 800),
     repetitions=5,
     seed=42,
     csv_filename="sorting_comparison_results.csv",
@@ -107,7 +111,13 @@ def save_results(results, filename):
 def plot_results(results, filename):
     """Save the n-versus-execution-time comparison graph."""
     figure, axis = plt.subplots(figsize=(9, 6))
-    colors = {"Merge Sort": "tab:blue", "Quick Sort": "tab:orange", "Heap Sort": "tab:green"}
+    colors = {
+        "Insertion Sort": "tab:red",
+        "Recursive Insertion": "tab:pink",
+        "Merge Sort": "tab:blue",
+        "Quick Sort": "tab:orange",
+        "Heap Sort": "tab:green",
+    }
 
     for algorithm_name in ALGORITHMS:
         algorithm_results = [
